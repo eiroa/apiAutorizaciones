@@ -3,6 +3,7 @@ import HttpRequestError from "../errores/HttpRequestError";
 import { Institucion } from "../modelos/Institucion";
 import {getConnection} from "typeorm";
 import { Uge } from "../modelos/Uge";
+import Interceptor from "../interceptor/Interceptor";
 
 
 export class InstitucionService {
@@ -30,7 +31,11 @@ export class InstitucionService {
             response = await getConnection(conexion.name).transaction(async transactionalEntityManager => {
                 for (let i  = 0; i < instituciones.length; i++) {
                     let institucion = instituciones[i];
-                    await transactionalEntityManager.getRepository(Institucion).save(institucion);    
+                    const exist = await transactionalEntityManager.getRepository(Institucion).findOne({prestador: institucion.prestador});
+                    if (!exist){
+                      let responseInstitucion = await transactionalEntityManager.getRepository(Institucion)
+                      .save(institucion);    
+                    }
                 }
             });      
         } catch (error) {
@@ -43,7 +48,7 @@ export class InstitucionService {
     public obtenerUges = async () => {
         let conexion = await this.obtenerRepositorio();
         const ugeRepositorio = conexion.getRepository(Uge);
-        const res = await ugeRepositorio.find();
+        const res = await ugeRepositorio.find({order: {nombre : 'ASC'}});
         return res;
     }
 
