@@ -5,10 +5,11 @@ import { InstitucionService } from "../servicios/InstitucionServicio";
 import { Institucion } from "../modelos/Institucion";
 import { TipoInternacion } from "../modelos/TipoInternacion";
 import { Uge } from "../modelos/Uge";
+import {GestorParametros} from "../Utilidades/GestorParametros";
 
 export class InstitucionControlador {
 
-    private servicio: InstitucionService
+    private servicio: InstitucionService;
     
     constructor() {
         this.servicio = new InstitucionService();
@@ -46,6 +47,22 @@ export class InstitucionControlador {
             console.log(err);
             HTTPResponseHandler.sendInternalError(res , err , null)
         });
+    }
+
+    public obtenerMensajesPorInstitucion = (req: Request , res: Response ) => {
+        let institucionId: number = parseInt(req.params.id);
+        this.servicio.obtenerMensajesPorInstitucion(institucionId)
+            .then((response: any) => {
+                const payload: any = {};
+                payload.mensajes = response[0];
+                payload.metadatos = {};
+                payload.metadatos.total = response[1];
+                HTTPResponseHandler.sendSuccess(res, payload);
+            })
+            .catch((err) => {
+                console.log(err);
+                HTTPResponseHandler.sendInternalError(res, err, null)
+            });
     }
 
     public obtenerUge = async (req: Request , res: Response) => {
