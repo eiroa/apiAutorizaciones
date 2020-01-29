@@ -26,6 +26,17 @@ describe("Auditoria de Terreno Server", () => {
         });
     });
 
+    describe("GET /Auditorias by Institucion ID", () => {
+        
+        const endpoint = "/instituciones/1/auditorias";
+
+        it("returns status code 200", () => {
+            request.get( base_url + endpoint, (error, response, body) => {
+                expect(response.statusCode).toBe(200);
+            });
+        });
+    });
+
     describe("GET /Uges", () => {
         
         const endpoint = "/instituciones/uges";

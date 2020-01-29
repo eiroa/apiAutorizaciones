@@ -17,6 +17,9 @@ export class Enrutador {
     public iniciar(express: any) {
         this.rutas = express.Router();
 
+        this.rutas.route('/instituciones/:id/auditorias')
+        .get(this.institucionControlador.obtenerAuditoriasPorInstitucion)
+        
         this.rutas.route('/instituciones/tipos')
         .get(this.tipoInternacionControlador.obtenerTipoInternaciones); 
 
