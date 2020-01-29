@@ -4,6 +4,7 @@ import { Institucion } from "../modelos/Institucion";
 import { Mensaje } from "../modelos/Mensaje";
 import {getConnection} from "typeorm";
 import { Uge } from "../modelos/Uge";
+import { Usuario } from "../modelos/Usuario";
 
 
 export class InstitucionService {
@@ -64,6 +65,18 @@ export class InstitucionService {
         const res = await ugeRepositorio.find({order: {nombre : 'ASC'}});
         return res;
     }
+
+    public obtenerAuditoresPorInstitucion = async (institucionId: number) => {
+      const conexion = await this.obtenerRepositorio();
+      const institucionRepositorio = conexion.getRepository(Usuario);
+      let query = await institucionRepositorio.createQueryBuilder('usuario')
+          .innerJoin('usuario.auditoria' , 'auditoria')
+          .innerJoin('auditoria.institucion', 'institucion')
+          .where('institucion.id = :id', { id: institucionId })
+
+      const res = await query.getMany();
+      return res;
+  }
 
     private obtenerRepositorio = async () => {
         console.log('llego a obtenerRepositorio');

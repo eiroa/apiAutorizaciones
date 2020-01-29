@@ -5,6 +5,8 @@ import { TipoInternacion } from "../modelos/TipoInternacion";
 import { Uge } from "../modelos/Uge";
 import {Mensaje} from "../modelos/Mensaje";
 import {Usuario} from "../modelos/Usuario";
+import Auditoria from "../modelos/Auditoria";
+import { Estado } from "../modelos/Estado";
 
 export class Conector {
 
@@ -28,7 +30,9 @@ export class Conector {
                        TipoInternacion,
                        Uge,
                        Mensaje,
-                       Usuario
+                       Usuario,
+                       Auditoria,
+                       Estado
                     ],
                     synchronize : false,
                     logging : true
