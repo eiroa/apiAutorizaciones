@@ -3,6 +3,9 @@ import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, OneToMan
 import { Usuario } from "./Usuario";
 import { Estado } from "./Estado";
 import { Institucion } from "./Institucion";
+import { TipoInternacion } from "./TipoInternacion";
+import { Paciente } from "./Paciente";
+import { Asignacion } from "./Asignacion";
 
 @Entity(`${process.env.DB_NAME}.AUDITORIA`)
 export default class Auditoria {
@@ -79,8 +82,11 @@ export default class Auditoria {
     })
     usuario: Usuario[];
 
- @ManyToOne(type => Paciente)
+    @ManyToOne(type => Paciente)
     @JoinColumn({ name: 'ID_PACIENTE', referencedColumnName: 'id' })
     paciente: Paciente;
+
+    @OneToMany(type => Asignacion , asignacion => asignacion.auditoria)   
+    asignaciones: Asignacion []; 
 
 }

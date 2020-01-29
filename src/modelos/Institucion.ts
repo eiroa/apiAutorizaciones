@@ -1,7 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToMany, JoinTable } from "typeorm";
 import Auditoria from "./Auditoria";
 import { Mensaje } from "./Mensaje";
-import Auditoria from "./Auditoria";
 
 @Entity(`${process.env.DB_NAME}.INSTITUCION`)
 export class Institucion {
@@ -33,7 +32,4 @@ export class Institucion {
     })
     mensajes: Mensaje[];
 
-    @OneToMany(type => Auditoria, auditoria => auditoria.institucion)
-    auditorias: Auditoria [];
-    
 }

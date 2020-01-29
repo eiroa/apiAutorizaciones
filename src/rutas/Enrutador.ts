@@ -36,7 +36,7 @@ export class Enrutador {
         this.rutas.route('/instituciones/:id/mensajes')
         .get(this.institucionControlador.obtenerMensajesPorInstitucion);
 
-        this.rutas.route('/instituciones/:id/auditores')
+        this.rutas.route('/instituciones/:id/usuarios')
         .get(this.institucionControlador.obtenerAuditoresPorInstitucion);
 
     }
