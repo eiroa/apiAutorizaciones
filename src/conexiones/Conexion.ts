@@ -3,10 +3,12 @@ import {Connection, createConnection} from "typeorm";
 import { Institucion } from "../modelos/Institucion";
 import { TipoInternacion } from "../modelos/TipoInternacion";
 import { Uge } from "../modelos/Uge";
-import {Mensaje} from "../modelos/Mensaje";
-import {Usuario} from "../modelos/Usuario";
 import Auditoria from "../modelos/Auditoria";
+import { Asignacion } from "../modelos/Asignacion";
+import { Usuario } from "../modelos/Usuario";
 import { Estado } from "../modelos/Estado";
+import { Paciente } from "../modelos/Paciente";
+import { Mensaje } from "../modelos/Mensaje";
 
 export class Conector {
 
@@ -29,10 +31,12 @@ export class Conector {
                        Institucion,
                        TipoInternacion,
                        Uge,
-                       Mensaje,
-                       Usuario,
                        Auditoria,
-                       Estado
+                       Asignacion,
+                       Usuario,
+                       Estado,
+                       Paciente,
+                       Mensaje
                     ],
                     synchronize : false,
                     logging : true

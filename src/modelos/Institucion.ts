@@ -1,4 +1,5 @@
-import {Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToMany, JoinTable} from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToMany, JoinTable } from "typeorm";
+import Auditoria from "./Auditoria";
 import { Mensaje } from "./Mensaje";
 import Auditoria from "./Auditoria";
 
@@ -16,6 +17,9 @@ export class Institucion {
 
     @Column({name :"URL_IMAGEN"})
     urlImagen : string;
+
+    @OneToMany(type => Auditoria, auditoria => auditoria.institucion)
+    auditorias: Auditoria [];
 
     @ManyToMany(type => Mensaje, mensaje => mensaje.instituciones)
     @JoinTable({

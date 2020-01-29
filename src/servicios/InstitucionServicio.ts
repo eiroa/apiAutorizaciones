@@ -4,17 +4,23 @@ import { Institucion } from "../modelos/Institucion";
 import { Mensaje } from "../modelos/Mensaje";
 import {getConnection} from "typeorm";
 import { Uge } from "../modelos/Uge";
+import { TipoInternacion } from "../modelos/TipoInternacion";
 import { Usuario } from "../modelos/Usuario";
-
 
 export class InstitucionService {
 
     constructor() {}
 
-    public obtenerInstituciones = async () => {
+    public obtenerInstituciones = async (paginado:any) => {
         let conexion = await this.obtenerRepositorio();
         const institucionRepositorio = conexion.getRepository(Institucion);
-        const res = await institucionRepositorio.find();
+        const res = await institucionRepositorio.createQueryBuilder("institucion")
+
+        .limit(paginado.limit)
+        .offset(paginado.offset)
+        .orderBy("institucion.id" , "ASC")
+        .getManyAndCount();
+        
         return res;
     }
 
@@ -66,7 +72,23 @@ export class InstitucionService {
         return res;
     }
 
-    public obtenerAuditoresPorInstitucion = async (institucionId: number) => {
+    public obtenerAuditoriasPorInstitucion = async (institucionID: number) => {
+        let conexion = await this.obtenerRepositorio();
+        const tiposRepositorio = conexion.getRepository(TipoInternacion);
+        const query = tiposRepositorio.createQueryBuilder("tipoInternacion")
+        const auditorias =  
+        query.innerJoinAndSelect("tipoInternacion.auditorias" , "auditoria")
+        .innerJoin("auditoria.institucion" , "institucion")
+        .leftJoinAndSelect('auditoria.asignaciones', 'asignacion')
+        .leftJoinAndSelect('asignacion.usuario', 'usuarios')
+        .innerJoinAndSelect('auditoria.paciente', 'paciente')
+        .where("institucion.id = :id" , {id : institucionID})        
+        .getMany();        
+        
+        return auditorias;
+    }
+
+  public obtenerAuditoresPorInstitucion = async (institucionId: number) => {
       const conexion = await this.obtenerRepositorio();
       const institucionRepositorio = conexion.getRepository(Usuario);
       let query = await institucionRepositorio.createQueryBuilder('usuario')
@@ -77,7 +99,6 @@ export class InstitucionService {
       const res = await query.getMany();
       return res;
   }
-
     private obtenerRepositorio = async () => {
         console.log('llego a obtenerRepositorio');
         return await Conector.obtenerConexion();

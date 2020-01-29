@@ -1,7 +1,6 @@
 import { PrimaryGeneratedColumn, Column, Entity, OneToMany, JoinColumn } from "typeorm";
 import Auditoria from "./Auditoria";
 
-
 @Entity(`${process.env.DB_NAME}.ESTADO`)
 export class Estado {
     @PrimaryGeneratedColumn({name:"ESTADO_ID"})

@@ -5,21 +5,32 @@ import { InstitucionService } from "../servicios/InstitucionServicio";
 import { Institucion } from "../modelos/Institucion";
 import { TipoInternacion } from "../modelos/TipoInternacion";
 import { Uge } from "../modelos/Uge";
-import {GestorParametros} from "../Utilidades/GestorParametros";
+import { QueryUtils } from "../componentes/QueryUtils";
 
 export class InstitucionControlador {
 
-    private servicio: InstitucionService;
+    private servicio: InstitucionService
+    private queryUtils : QueryUtils
     
     constructor() {
         this.servicio = new InstitucionService();
+        this.queryUtils = new QueryUtils();
     }
 
     public obtenerInstituciones = async (req: Request , res: Response ) => {
-        let response: Institucion [] = [];
+        let response = [];
+
+        let limit = parseInt(req.query.limit);
+        let offset = parseInt(req.query.offset);
+        let paginado:any = this.queryUtils.obtenerPaginado(offset , limit)
+
         try {
-            response = await this.servicio.obtenerInstituciones();
-            res.send(response);
+            response = await this.servicio.obtenerInstituciones(paginado);
+            let payload:any = {};
+            payload.instituciones = response[0];
+            payload.metadatos = {};
+            payload.metadatos.totales = response[1];
+            res.send(payload);
             res.status(200);
         } catch (error) {
             HTTPResponseHandler.sendInternalError(res , error , null);
@@ -72,6 +83,19 @@ export class InstitucionControlador {
             res.send(response);
             res.status(200);
         } catch (error) {
+            HTTPResponseHandler.sendInternalError(res , error , null);
+        }
+    }
+
+    public obtenerAuditoriasPorInstitucion = async (req: Request , res: Response) => {
+        let response = [];
+        let institucionID:number = parseInt(req.params.id);
+        try {
+            response = await this.servicio.obtenerAuditoriasPorInstitucion(institucionID);
+            res.send(response);
+            res.status(200);
+        } catch (error) {
+            console.error(error);
             HTTPResponseHandler.sendInternalError(res , error , null);
         }
     }

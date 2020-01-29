@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, ManyToMany, JoinTable, OneToMany } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, OneToMany, ManyToMany, JoinTable } from "typeorm";
 
 import { Usuario } from "./Usuario";
 import { Estado } from "./Estado";
@@ -55,9 +55,13 @@ export default class Auditoria {
     })
 	  activo:boolean;
 	
-	  @ManyToOne(type => Estado )
+    @ManyToOne(type => Estado )
     @JoinColumn({ name: 'ID_ESTADO', referencedColumnName: 'id' })
     estado: Estado;
+
+    @ManyToOne(type => TipoInternacion)
+    @JoinColumn({ name: 'ID_TIPO_INTERNACION', referencedColumnName: 'id' })
+    tipoInternacion: TipoInternacion;
 
     @ManyToOne(type => Institucion)
     @JoinColumn({ name: 'ID_INSTITUCION', referencedColumnName: 'id' })
@@ -74,5 +78,9 @@ export default class Auditoria {
       ]
     })
     usuario: Usuario[];
+
+ @ManyToOne(type => Paciente)
+    @JoinColumn({ name: 'ID_PACIENTE', referencedColumnName: 'id' })
+    paciente: Paciente;
 
 }
