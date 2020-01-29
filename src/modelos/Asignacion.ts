@@ -1,6 +1,6 @@
 import { PrimaryGeneratedColumn, Column, Entity, OneToMany, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm";
 import Auditoria from "./Auditoria";
-import Usuario from "./Usuario";
+import {Usuario} from "./Usuario";
 
 @Entity(`${process.env.DB_NAME}.ASIGNACION`)
 export class Asignacion {

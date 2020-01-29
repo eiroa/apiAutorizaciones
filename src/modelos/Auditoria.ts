@@ -1,15 +1,11 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, OneToMany, ManyToMany, JoinTable } from "typeorm";
 
-
-
-import { Paciente } from "./Paciente";
-
-import { Asignacion } from "./Asignacion";
-import { TipoInternacion } from "./TipoInternacion";
-import { Institucion } from "./Institucion";
+import { Usuario } from "./Usuario";
 import { Estado } from "./Estado";
-
-
+import { Institucion } from "./Institucion";
+import { TipoInternacion } from "./TipoInternacion";
+import { Paciente } from "./Paciente";
+import { Asignacion } from "./Asignacion";
 
 @Entity(`${process.env.DB_NAME}.AUDITORIA`)
 export default class Auditoria {
@@ -74,19 +70,23 @@ export default class Auditoria {
     @JoinColumn({ name: 'ID_INSTITUCION', referencedColumnName: 'id' })
     institucion: Institucion;
 
-    @OneToMany(type => Asignacion , asignacion => asignacion.auditoria)   
-    asignaciones: Asignacion []; 
+    @ManyToMany(type => Usuario, usuario => usuario.auditoria)
+    @JoinTable({
+      name: 'ASIGNACION',
+      joinColumns: [
+          { name: 'ID_AUDITORIA', referencedColumnName: 'id' }
+      ],
+      inverseJoinColumns: [
+        { name: 'ID_USUARIO', referencedColumnName: 'id' },
+      ]
+    })
+    usuario: Usuario[];
 
     @ManyToOne(type => Paciente)
     @JoinColumn({ name: 'ID_PACIENTE', referencedColumnName: 'id' })
     paciente: Paciente;
 
-    
-
-    
-
-    
-
-    
+    @OneToMany(type => Asignacion , asignacion => asignacion.auditoria)   
+    asignaciones: Asignacion []; 
 
 }

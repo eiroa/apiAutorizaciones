@@ -99,4 +99,16 @@ export class InstitucionControlador {
             HTTPResponseHandler.sendInternalError(res , error , null);
         }
     }
+
+    public obtenerAuditoresPorInstitucion = (req: Request , res: Response ) => {
+      let institucionId: number = parseInt(req.params.id);
+      this.servicio.obtenerAuditoresPorInstitucion(institucionId)
+          .then((response: any) => {
+              HTTPResponseHandler.sendSuccess(res, response);
+          })
+          .catch((err) => {
+              console.log(err);
+              HTTPResponseHandler.sendInternalError(res, err, null)
+          });
+    }
 }

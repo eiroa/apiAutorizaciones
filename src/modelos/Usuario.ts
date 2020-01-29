@@ -1,6 +1,7 @@
-import {Column, Entity, OneToMany, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, OneToMany, PrimaryGeneratedColumn, ManyToMany, JoinTable} from "typeorm";
 import {Mensaje} from "./Mensaje";
 import { Asignacion } from "./Asignacion";
+import Auditoria from "./Auditoria";
 
 @Entity(`${process.env.DB_NAME}.USUARIO`)
 export class Usuario {
@@ -28,4 +29,16 @@ export class Usuario {
 
     @OneToMany(type => Mensaje, mensaje => mensaje.usuario)
     mensajes : Mensaje [];
+
+    @ManyToMany(type => Auditoria, auditoria => auditoria.usuario)
+    @JoinTable({
+      name: 'ASIGNACION',
+      joinColumns: [
+          { name: 'ID_USUARIO', referencedColumnName: 'id' },
+      ],
+      inverseJoinColumns: [
+          { name: 'ID_AUDITORIA', referencedColumnName: 'id' }
+      ]
+    })
+    auditoria: Auditoria[];
 }
