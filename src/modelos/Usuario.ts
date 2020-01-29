@@ -1,25 +1,31 @@
-import {Entity, PrimaryGeneratedColumn, Column, OneToMany} from "typeorm";
+import {Column, Entity, OneToMany, PrimaryGeneratedColumn} from "typeorm";
+import {Mensaje} from "./Mensaje";
 import { Asignacion } from "./Asignacion";
 
-
 @Entity(`${process.env.DB_NAME}.USUARIO`)
-export default class Usuario {
+export class Usuario {
 
-    @PrimaryGeneratedColumn({name:"USUARIO_ID"})
+    @PrimaryGeneratedColumn({name: "USUARIO_ID"})
     id: number;
 
-    @Column({name:"USUARIO"})
+    @Column({name : "USUARIO"})
     usuario: string;
 
-    @Column({name:"EMAIL"})
-    email: string;
-    
-    @Column({name:"OBSERVACIONES"})
+    @Column({name : "OBSERVACIONES"})
     observaciones: string;
-      
+
+    @Column({name : "EMAIL"})
+    email: string;
+
+    @Column({
+        type: "smallint",
+        name: "ACTIVO"
+    })
+    activo: boolean;
+
     @OneToMany(type => Asignacion, asignacion => asignacion.usuario)    
     asignaciones: Asignacion []; 
-    
+
+    @OneToMany(type => Mensaje, mensaje => mensaje.usuario)
+    mensajes : Mensaje [];
 }
-
-

@@ -1,9 +1,9 @@
 import { Conector } from "../conexiones/Conexion";
 import HttpRequestError from "../errores/HttpRequestError";
 import { Institucion } from "../modelos/Institucion";
+import { Mensaje } from "../modelos/Mensaje";
 import {getConnection} from "typeorm";
 import { Uge } from "../modelos/Uge";
-import Interceptor from "../interceptor/Interceptor";
 import { TipoInternacion } from "../modelos/TipoInternacion";
 
 
@@ -24,14 +24,27 @@ export class InstitucionService {
         return res;
     }
 
-    public obtenerInstitucionPorID = async (emplooyeID:number) => {
+    public obtenerInstitucionPorID = async (emplooyeID: number) => {
         let conexion = await this.obtenerRepositorio();
         const institucionRepositorio = conexion.getRepository(Institucion);
         const res = await institucionRepositorio.findOne(emplooyeID);
         return res;
     }
 
-    public insertarInstituciones = async (instituciones:any []) => {      
+    public obtenerMensajesPorInstitucion = async (institucionId: number) => {
+        const conexion = await this.obtenerRepositorio();
+        const institucionRepositorio = conexion.getRepository(Mensaje);
+        let query = await institucionRepositorio.createQueryBuilder('mensaje')
+            .innerJoin('mensaje.instituciones' , 'institucion')
+            .innerJoinAndSelect('mensaje.usuario', 'usuario')
+            .where('institucion.id = :id', { id: institucionId })
+            .orderBy({'mensaje.fecha': 'DESC' });
+
+        const res = await query.getManyAndCount();
+        return res;
+    }
+
+    public insertarInstituciones = async (instituciones: any []) => {
         let conexion = await this.obtenerRepositorio();
         let response: any = {};
         try {
@@ -76,6 +89,7 @@ export class InstitucionService {
     }
 
     private obtenerRepositorio = async () => {
+        console.log('llego a obtenerRepositorio');
         return await Conector.obtenerConexion();
     }
 }

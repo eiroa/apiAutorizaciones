@@ -6,12 +6,12 @@ export class Enrutador {
 
     private rutas: any;
     
-    private institucionControlador: InstitucionControlador
-    private tipoInternacionControlador: TipoInternacionConstrolador
+    private institucionControlador: InstitucionControlador;
+    private tipoInternacionControlador: TipoInternacionConstrolador;
 
     constructor(){
         this.institucionControlador = new InstitucionControlador();
-        this.tipoInternacionControlador = new TipoInternacionConstrolador
+        this.tipoInternacionControlador = new TipoInternacionConstrolador;
     }
 
     public iniciar(express: any) {
@@ -32,6 +32,9 @@ export class Enrutador {
         this.rutas.route('/instituciones')
         .get(this.institucionControlador.obtenerInstituciones)
         .post(this.institucionControlador.insertarInstituciones);
+
+        this.rutas.route('/instituciones/:id/mensajes')
+        .get(this.institucionControlador.obtenerMensajesPorInstitucion);
     }
 
 

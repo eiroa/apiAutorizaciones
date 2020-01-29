@@ -60,6 +60,22 @@ export class InstitucionControlador {
         });
     }
 
+    public obtenerMensajesPorInstitucion = (req: Request , res: Response ) => {
+        let institucionId: number = parseInt(req.params.id);
+        this.servicio.obtenerMensajesPorInstitucion(institucionId)
+            .then((response: any) => {
+                const payload: any = {};
+                payload.mensajes = response[0];
+                payload.metadatos = {};
+                payload.metadatos.total = response[1];
+                HTTPResponseHandler.sendSuccess(res, payload);
+            })
+            .catch((err) => {
+                console.log(err);
+                HTTPResponseHandler.sendInternalError(res, err, null)
+            });
+    }
+
     public obtenerUge = async (req: Request , res: Response) => {
         let response: Uge [] = [];
         try {
