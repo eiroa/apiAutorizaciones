@@ -35,10 +35,12 @@ export class InstitucionService {
         const conexion = await this.obtenerRepositorio();
         const institucionRepositorio = conexion.getRepository(Mensaje);
         let query = await institucionRepositorio.createQueryBuilder('mensaje')
-            .innerJoin('mensaje.instituciones' , 'institucion')
-            .innerJoinAndSelect('mensaje.usuario', 'usuario')
-            .where('institucion.id = :id', { id: institucionId })
-            .orderBy({'mensaje.fecha': 'DESC' });
+        
+        .innerJoin('mensaje.instituciones' , 'institucion')
+        .innerJoinAndSelect('mensaje.usuario', 'usuario')
+        .where('institucion.id = :id', { id: institucionId })
+        .andWhere('mensaje.activo = 1')
+        .orderBy({'mensaje.fecha': 'DESC' });
 
         const res = await query.getManyAndCount();
         return res;

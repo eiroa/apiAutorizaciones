@@ -14,6 +14,12 @@ export class Mensaje {
     @Column({name : "FECHA"})
     fecha: Date;
 
+    @Column({
+        type: "smallint",
+        name: "ACTIVO"
+      })
+      activo:boolean;
+
     @ManyToOne(type => Usuario, usuario => usuario.mensajes)
     @JoinColumn({ name: 'ID_USUARIO', referencedColumnName: 'id' })
     usuario: Usuario;
