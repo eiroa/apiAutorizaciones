@@ -102,7 +102,6 @@ export class InstitucionService {
       return res;
   }
     private obtenerRepositorio = async () => {
-        console.log('llego a obtenerRepositorio');
         return await Conector.obtenerConexion();
     }
 }
