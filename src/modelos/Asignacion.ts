@@ -5,6 +5,10 @@ import {Usuario} from "./Usuario";
 @Entity(`${process.env.DB_NAME}.ASIGNACION`)
 export class Asignacion {
 
+    
+    @PrimaryGeneratedColumn({name : "ASIGNACION_ID"})
+    id: number;
+    
     @Column({name : "FECHA_ASIGNACION"})
     fechaAsignacion : Date;   
 

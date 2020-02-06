@@ -84,7 +84,7 @@ export class InstitucionService {
         .leftJoinAndSelect('auditoria.asignaciones', 'asignacion')
         .leftJoinAndSelect('asignacion.usuario', 'usuarios')
         .innerJoinAndSelect('auditoria.paciente', 'paciente')
-        .where("institucion.id = :id" , {id : institucionID})        
+        .where("institucion.id = :id" , {id : institucionID})
         .getMany();        
         
         return auditorias;
