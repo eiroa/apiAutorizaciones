@@ -98,6 +98,7 @@ export class InstitucionService {
           .innerJoin('usuario.auditoria' , 'auditoria')
           .innerJoin('auditoria.institucion', 'institucion')
           .where('institucion.id = :id', { id: institucionId })
+          .orderBy({'usuario.usuario': 'ASC' });
 
       const res = await query.getMany();
       return res;
