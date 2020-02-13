@@ -19,6 +19,7 @@ export class InstitucionService {
         .limit(paginado.limit)
         .offset(paginado.offset)
         .orderBy("institucion.id" , "ASC")
+        .orderBy({'institucion.prestador': 'ASC' })
         .getManyAndCount();
         
         return res;
