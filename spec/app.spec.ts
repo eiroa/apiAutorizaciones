@@ -4,6 +4,8 @@ var base_url = "http://localhost:8080/api"
 
 describe("Auditoria de Terreno Server", () => {
 
+	var server;
+	
 	before(function () {
 		server = require('../src/server')
 	});
@@ -13,57 +15,36 @@ describe("Auditoria de Terreno Server", () => {
 	});
 
 
-    describe("GET /Instituciones", () => {
+    describe("", () => {
         
         const endpoint = "/instituciones";
 
-        it("returns status code 200", () => {
-            request.get( base_url + endpoint, (error, response, body) => {
-                assert.equal(response.statusCode, 200);
-            });
-        });
-    });
-
-    describe("GET /Instituciones by ID", () => {
-        
-        const endpoint = "/instituciones/1";
-
-        it("returns status code 200", () => {
-            request.get( base_url + endpoint, (error, response, body) => {
-                assert.equal(response.statusCode, 200);
-            });
-        });
-    });
-
-    describe("GET /Auditorias by Institucion ID", () => {
-        
-        const endpoint = "/instituciones/1/auditorias";
-
-        it("returns status code 200", () => {
-            request.get( base_url + endpoint, (error, response, body) => {
-                assert.equal(response.statusCode, 200);
-            });
-        });
-    });
-
-    describe("GET /Uges", () => {
-        
-        const endpoint = "/instituciones/uges";
-
-        it("returns status code 200", () => {
+        it("GET /Instituciones", () => {
             request.get( base_url + endpoint, (error, response, body) => {
                 assert.equal(response.statusCode, 200);
             });
         });
 
-    });
+        it("GET /Instituciones by ID", () => {
+            request.get( base_url + endpoint + '/1', (error, response, body) => {
+                assert.equal(response.statusCode, 200);
+            });
+        });
 
-    describe("GET /Tipos de Internacion", () => {
-        
-        const endpoint = "/instituciones/tipos";
+        it("GET /Auditorias by Institucion ID", () => {
+            request.get( base_url + endpoint + '/1/auditorias', (error, response, body) => {
+                assert.equal(response.statusCode, 200);
+            });
+        });
 
-        it("returns status code 200", () => {
-            request.get( base_url + endpoint, (error, response, body) => {
+        it("GET /Uges", () => {
+            request.get( base_url + endpoint + '/uges', (error, response, body) => {
+                assert.equal(response.statusCode, 200);
+            });
+        });
+
+        it("GET /Tipos de Internacion", () => {
+            request.get( base_url + endpoint + '/tipos', (error, response, body) => {
                 assert.equal(response.statusCode, 200);
             });
         });
