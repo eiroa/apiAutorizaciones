@@ -32,5 +32,3 @@ const server = http.createServer(express);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
-
-module.exports = server;
