@@ -1,6 +1,6 @@
 runCIPipeline(application: env.APP_NAME,
               agent: "nodejs",
               compileCommands: "npm install; npm run build",
-              testCommands: "npm start &; sleep 5;npm run test",
-              analyzeCommands: "export JAVA_TOOL_OPTIONS='-XX:+UnlockExperimentalVMOptions -XX:+UseContainerSupport -Dsun.zip.disableMemoryMapping=true'; npm run analizer",
+              testCommands: "npm run test",
+              analyzeCommands: "export JAVA_TOOL_OPTIONS='-XX:+UnlockExperimentalVMOptions -XX:+UseContainerSupport -Dsun.zip.disableMemoryMapping=true'; npm run coverage; npm run analizer",
               artifactsDir: "./")

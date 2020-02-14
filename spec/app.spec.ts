@@ -1,8 +1,17 @@
 var request = require("request");
-
+const assert = require('chai').assert;
 var base_url = "http://localhost:8080/api"
 
 describe("Auditoria de Terreno Server", () => {
+
+	before(function () {
+		server = require('../src/server')
+	});
+	
+	after(function () {
+		server.close();
+	});
+
 
     describe("GET /Instituciones", () => {
         
@@ -10,7 +19,7 @@ describe("Auditoria de Terreno Server", () => {
 
         it("returns status code 200", () => {
             request.get( base_url + endpoint, (error, response, body) => {
-                expect(response.statusCode).toBe(200);
+                assert.equal(response.statusCode, 200);
             });
         });
     });
@@ -21,7 +30,7 @@ describe("Auditoria de Terreno Server", () => {
 
         it("returns status code 200", () => {
             request.get( base_url + endpoint, (error, response, body) => {
-                expect(response.statusCode).toBe(200);
+                assert.equal(response.statusCode, 200);
             });
         });
     });
@@ -32,7 +41,7 @@ describe("Auditoria de Terreno Server", () => {
 
         it("returns status code 200", () => {
             request.get( base_url + endpoint, (error, response, body) => {
-                expect(response.statusCode).toBe(200);
+                assert.equal(response.statusCode, 200);
             });
         });
     });
@@ -43,7 +52,7 @@ describe("Auditoria de Terreno Server", () => {
 
         it("returns status code 200", () => {
             request.get( base_url + endpoint, (error, response, body) => {
-                expect(response.statusCode).toBe(200);
+                assert.equal(response.statusCode, 200);
             });
         });
 
@@ -55,7 +64,7 @@ describe("Auditoria de Terreno Server", () => {
 
         it("returns status code 200", () => {
             request.get( base_url + endpoint, (error, response, body) => {
-                expect(response.statusCode).toBe(200);
+                assert.equal(response.statusCode, 200);
             });
         });
 
