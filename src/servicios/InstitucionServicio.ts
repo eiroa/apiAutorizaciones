@@ -15,7 +15,7 @@ export class InstitucionService {
         let conexion = await this.obtenerRepositorio();
         const institucionRepositorio = conexion.getRepository(Institucion);
         const res = await institucionRepositorio.createQueryBuilder("institucion")
-
+                      
         .limit(paginado.limit)
         .offset(paginado.offset)
         .orderBy("institucion.id" , "ASC")
@@ -84,7 +84,9 @@ export class InstitucionService {
         .leftJoinAndSelect('auditoria.asignaciones', 'asignacion')
         .leftJoinAndSelect('asignacion.usuario', 'usuarios')
         .innerJoinAndSelect('auditoria.paciente', 'paciente')
-        .where("institucion.id = :id" , {id : institucionID})
+        .leftJoin("auditoria.estado" , "estado")
+        .where("estado.id = 1")
+        .andWhere("institucion.id = :id" , {id : institucionID})
         .getMany();        
         
         return auditorias;
