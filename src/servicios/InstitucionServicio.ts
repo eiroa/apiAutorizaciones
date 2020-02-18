@@ -98,11 +98,13 @@ export class InstitucionService {
       const conexion = await this.obtenerRepositorio();
       const institucionRepositorio = conexion.getRepository(Usuario);
       let query = await institucionRepositorio.createQueryBuilder('usuario')
-          .innerJoin('usuario.auditoria' , 'auditoria')
+          .innerJoin('usuario.asignaciones' , 'asignacion')
+          .innerJoin('asignacion.auditoria' , 'auditoria')
           .innerJoin('auditoria.institucion', 'institucion')
           .where('institucion.id = :id', { id: institucionId })
+          .andWhere('usuario.activo = 1')
+          .andWhere('asignacion.activo = 1')
           .orderBy({'usuario.usuario': 'ASC' });
-
       const res = await query.getMany();
       return res;
   }
@@ -110,3 +112,4 @@ export class InstitucionService {
         return await Conector.obtenerConexion();
     }
 }
+
