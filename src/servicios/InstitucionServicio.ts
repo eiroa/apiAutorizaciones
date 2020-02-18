@@ -32,11 +32,12 @@ export class InstitucionService {
         return res;
     }
 
-    public obtenerMensajesPorInstitucion = async (institucionId: number) => {
+    public obtenerMensajesPorInstitucion = async (institucionId: number, paginado: any) => {
         const conexion = await this.obtenerRepositorio();
         const institucionRepositorio = conexion.getRepository(Mensaje);
         let query = await institucionRepositorio.createQueryBuilder('mensaje')
-        
+        .limit(paginado.limit)
+        .offset(paginado.offset)
         .innerJoin('mensaje.instituciones' , 'institucion')
         .innerJoinAndSelect('mensaje.usuario', 'usuario')
         .where('institucion.id = :id', { id: institucionId })
