@@ -62,7 +62,10 @@ export class InstitucionControlador {
 
     public obtenerMensajesPorInstitucion = (req: Request , res: Response ) => {
         let institucionId: number = parseInt(req.params.id);
-        this.servicio.obtenerMensajesPorInstitucion(institucionId)
+        let limit = parseInt(req.query.limit);
+        let offset = parseInt(req.query.offset);
+        let paginado:any = this.queryUtils.obtenerPaginado(offset , limit);
+        this.servicio.obtenerMensajesPorInstitucion(institucionId, paginado)
             .then((response: any) => {
                 const payload: any = {};
                 payload.mensajes = response[0];
