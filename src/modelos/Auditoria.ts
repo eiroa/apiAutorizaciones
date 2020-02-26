@@ -31,9 +31,6 @@ export default class Auditoria {
     @Column({name : "FECHA_EGRESO"})
     fechaEgreso: Date;
 
-    @Column({name : "DIAS"})
-    dias: number;
-
     @Column({name : "PRESCRIPTOR"})
     prescriptor: string;
 
