@@ -57,7 +57,7 @@ export class InstitucionService {
                     let institucion = instituciones[i];
                     const exist = await transactionalEntityManager.getRepository(Institucion).findOne({prestador: institucion.prestador});
                     if (!exist){
-                      let responseInstitucion = await transactionalEntityManager.getRepository(Institucion)
+                        await transactionalEntityManager.getRepository(Institucion)
                       .save(institucion);    
                     }
                 }
