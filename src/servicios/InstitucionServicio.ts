@@ -104,6 +104,7 @@ export class InstitucionService {
           .where('institucion.id = :id', { id: institucionId })
           .andWhere('usuario.activo = 1')
           .andWhere('asignacion.activo = 1')
+          .andWhere('auditoria.estado = 1')
           .orderBy({'usuario.usuario': 'ASC' });
       const res = await query.getMany();
       return res;
