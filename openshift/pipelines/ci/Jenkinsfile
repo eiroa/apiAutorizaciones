@@ -1,6 +1,6 @@
 runCIPipeline(application: env.APP_NAME,
               agent: "nodejs10",
               compileCommands: "npm i -D; npm run build",
-              testCommands: "export NODE_ENV='development'; export DB_TYPE='oracle'; export DB_HOST='10.3.5.134'; export DB_PORT='1521'; export DB_USER='MF_PREST'; export DB_PASSWORD='jp6gqJBZ9Xmg2YCm'; export DB_SID='sume12c'; export DB_NAME='MF_PREST'; npm run coverage",
-              analyzeCommands: "export JAVA_TOOL_OPTIONS='-XX:+UnlockExperimentalVMOptions -XX:+UseContainerSupport -Dsun.zip.disableMemoryMapping=true'; npm run coverage; npm run analizer",
+              testCommands: "export NODE_ENV='development'; export DB_TYPE='oracle'; export DB_HOST='10.3.5.134'; export DB_PORT='1521'; export DB_USER='MF_PREST'; export DB_PASSWORD='jp6gqJBZ9Xmg2YCm'; export DB_SID='sume12c'; export DB_NAME='MF_PREST'; npm run test; npm run coverage",
+              analyzeCommands: "export JAVA_TOOL_OPTIONS='-XX:+UnlockExperimentalVMOptions -XX:+UseContainerSupport -Dsun.zip.disableMemoryMapping=true'; npm run analizer",
               artifactsDir: "./")
