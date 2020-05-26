@@ -1,5 +1,5 @@
 runCDPipeline(application: env.APP_NAME,
-              agent: "nodejs",
+              agent: "nodejs10",
               compileCommands: "npm install; npm run build",
               testCommands: "sleep 5",
               artifactsDir: "./")
