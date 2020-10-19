@@ -5,6 +5,8 @@ import {AutorizacionTipo} from "../modelos/AutorizacionTipo";
 import {AutorizacionSubtipo} from "../modelos/AutorizacionSubtipo";
 import {AutorizacionPractica} from "../modelos/AutorizacionPractica";
 import {RequiereAutorizacion} from "../modelos/RequiereAutorizacion";
+import {AutorizacionDocumento} from "../modelos/AutorizacionDocumento";
+
 
 export class Repository {
 
@@ -29,7 +31,8 @@ export class Repository {
                         AutorizacionTipo,
                         AutorizacionSubtipo,
                         AutorizacionPractica,
-                        RequiereAutorizacion
+                        RequiereAutorizacion,
+                        AutorizacionDocumento
                     ],
                     synchronize : false,
                     logging : true

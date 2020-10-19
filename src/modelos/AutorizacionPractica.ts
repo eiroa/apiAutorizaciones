@@ -2,6 +2,9 @@ import {Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn
 import {AutorizacionTipo} from "./AutorizacionTipo";
 import {AutorizacionSubtipo} from "./AutorizacionSubtipo";
 import {RequiereAutorizacion} from "./RequiereAutorizacion";
+import {AutorizacionDocumento} from "./AutorizacionDocumento";
+
+
 
 @Entity(`${process.env.DB_NAME}.AUTORIZACION_PRACTICA`)
 export class AutorizacionPractica {
@@ -13,6 +16,7 @@ export class AutorizacionPractica {
     nombre: string;
 
     @Column({name :'DESCRIPCION'})
+
     descripcion: string;
 
     @ManyToOne(type => AutorizacionTipo, {primary : true} )
@@ -26,6 +30,12 @@ export class AutorizacionPractica {
     @OneToMany(type => RequiereAutorizacion, requiereAutorizacion => requiereAutorizacion.autorizacionPractica)
     requiereAutorizacion: RequiereAutorizacion[];
 
+    @OneToMany(type => AutorizacionDocumento, autorizacionDocumento => autorizacionDocumento.autorizacionPractica)
+    autorizacionPractica: AutorizacionDocumento[];
+
     @Column({name :'PLAZO'})
-    activo: string;
+    plazo: string;
+
+    @Column({name :'PLAZO_HS'})
+    plazoHs: number;
 }
