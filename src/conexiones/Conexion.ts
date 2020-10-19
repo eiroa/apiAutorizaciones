@@ -1,25 +1,22 @@
 import "reflect-metadata";
 import {Connection, createConnection} from "typeorm";
-import { Institucion } from "../modelos/Institucion";
-import { TipoInternacion } from "../modelos/TipoInternacion";
-import { Uge } from "../modelos/Uge";
-import Auditoria from "../modelos/Auditoria";
-import { Asignacion } from "../modelos/Asignacion";
-import { Usuario } from "../modelos/Usuario";
-import { Estado } from "../modelos/Estado";
-import { Paciente } from "../modelos/Paciente";
-import { Mensaje } from "../modelos/Mensaje";
+import {Temp} from "../modelos/Temp";
+import {AutorizacionTipo} from "../modelos/AutorizacionTipo";
+import {AutorizacionSubtipo} from "../modelos/AutorizacionSubtipo";
+import {AutorizacionPractica} from "../modelos/AutorizacionPractica";
+import {RequiereAutorizacion} from "../modelos/RequiereAutorizacion";
 
-export class Conector {
+export class Repository {
 
-    private static conexion: Connection;
+    private static connection: Connection;
 
-    public static crearConexion = async () : Promise<Connection> => {
-        if(!Conector.conexion) {
-            if(Conector.conexion) {
-                return Conector.conexion;
+    public static getInstace = async () : Promise<Connection> => {
+        if(!Repository.connection) {
+            if(Repository.connection) {
+                return Repository.connection;
             } else {
-                let opciones:any = {
+
+                let options:any = {
                     type: process.env.DB_TYPE,
                     host: process.env.DB_HOST,
                     port: parseInt(process.env.DB_PORT),
@@ -28,28 +25,25 @@ export class Conector {
                     sid: process.env.DB_SID,
                     database :process.env.DB_NAME,
                     entities : [
-                       Institucion,
-                       TipoInternacion,
-                       Uge,
-                       Auditoria,
-                       Asignacion,
-                       Usuario,
-                       Estado,
-                       Paciente,
-                       Mensaje
+                        Temp,
+                        AutorizacionTipo,
+                        AutorizacionSubtipo,
+                        AutorizacionPractica,
+                        RequiereAutorizacion
                     ],
                     synchronize : false,
                     logging : true
                 }
-                const aConexion = await createConnection(opciones);
-                Conector.conexion = aConexion;
+                const connection = await createConnection(options);
+                Repository.connection = connection;
             }
         }
-        return Conector.conexion;
+        return Repository.connection;
     }
 
-    public static obtenerConexion = async () => {
-        const connection = await Conector.crearConexion();
+    public static getConnection = async () => {
+        const connection = await Repository.getInstace();
         return connection;
     }
 }
+

@@ -8,7 +8,6 @@ const swaggerDocument = require('./swagger.json');
 const swaggerUi = require('swagger-ui-express');
 
 import { Enrutador } from "./rutas/Enrutador";
-import Interceptor from "./interceptor/Interceptor";
 import { Health } from "./componentes/Health";
 
 // Create and configure ExpressJS.
@@ -39,7 +38,6 @@ export class App {
 
     // Init Routes.
     private configurarApi(): void {
-        //this.express.use(Interceptor.intercept);
         this.enrutador.iniciar(express);
         this.health.iniciar(express);
         this.express.use('/api', this.enrutador.obtenerRutas());

@@ -1,44 +1,35 @@
 
-import { InstitucionControlador } from "../controladores/InstitucionControlador";
-import { TipoInternacionConstrolador } from "../controladores/TipoInternacionControlador";
+import { Controlador } from "../controladores/Controlador";
 
 export class Enrutador {
 
     private rutas: any;
     
-    private institucionControlador: InstitucionControlador;
-    private tipoInternacionControlador: TipoInternacionConstrolador;
+    private controller: Controlador;
 
     constructor(){
-        this.institucionControlador = new InstitucionControlador();
-        this.tipoInternacionControlador = new TipoInternacionConstrolador;
+        this.controller = new Controlador();
     }
 
     public iniciar(express: any) {
         this.rutas = express.Router();
 
-        this.rutas.route('/instituciones/:id/auditorias')
-        .get(this.institucionControlador.obtenerAuditoriasPorInstitucion)
-        
-        this.rutas.route('/instituciones/tipos')
-        .get(this.tipoInternacionControlador.obtenerTipoInternaciones); 
+        this.rutas.route("/temp")
+            .get(this.controller.getTemp)
+            .post(this.controller.saveTemp);
 
-        this.rutas.route('/instituciones/uges')
-        .get(this.institucionControlador.obtenerUge); 
+        this.rutas.route("/temp2")
+            .get(this.controller.getTemp2);
 
-        this.rutas.route('/instituciones/:id')
-        .get(this.institucionControlador.obtenerInstitucionPorID);
+        this.rutas.route("/temp/:id")
+            .get(this.controller.getTempById)
+            .put(this.controller.updateTemp);
 
-        this.rutas.route('/instituciones')
-        .get(this.institucionControlador.obtenerInstituciones)
-        .post(this.institucionControlador.insertarInstituciones);
+        this.rutas.route("/autorizacion_tipo")
+            .get(this.controller.getAutorizacionesTipo);
 
-        this.rutas.route('/instituciones/:id/mensajes')
-        .get(this.institucionControlador.obtenerMensajesPorInstitucion);
-
-        this.rutas.route('/instituciones/:id/usuarios')
-        .get(this.institucionControlador.obtenerAuditoresPorInstitucion);
-
+        this.rutas.route("/autorizacion_subtipo")
+            .get(this.controller.getAutorizacionesSubtipo);
     }
 
     public obtenerRutas(){

@@ -1,14 +1,11 @@
 export class QueryUtils {
     
-    public obtenerPaginado = (offset:any , limit:any) => {
+    generateQueryTemp = (params) => {
+        const result: any = {}
+        result.nombre = params.nombre || '';
+        result.documento = params.documento || '';
 
-        let paginado:any = {};
-        if (offset && limit) {
-            paginado.limit = Number(limit);
-            paginado.offset = Number(offset);
-            paginado.offset = (Number(offset) - 1) * Number(limit);
-        }
-        return paginado;
+        return result;
     }
 
 }
