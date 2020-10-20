@@ -104,8 +104,13 @@ export class Controlador {
     }
 
     getAutorizacionPractica = async  (req: Request, res: Response) => {
-        const response = await this.serviceAutorizacionPractica.getAutorizacionesPractica(req.query);
-        res.send(response);
+        try {
+            const response = await this.serviceAutorizacionPractica.getAutorizacionesPractica(req.query);
+            res.send(response);
+        } catch (e) {
+            console.error(e);
+            res.send({error: 'Hubo un error'})
+        }
     }
 
 }
