@@ -1,12 +1,10 @@
-import {Request, Response, response} from "express";
 import {Connection} from "typeorm";
 import {Repository} from "../conexiones/Conexion";
-import {AutorizacionSubtipo} from "../modelos/AutorizacionSubtipo";
 import {AutorizacionPractica} from "../modelos/AutorizacionPractica";
 import {RequiereAutorizacion} from "../modelos/RequiereAutorizacion";
 
 export class AutorizacionPracticaService {
-    https = require('https');
+
     constructor() {}
 
     getAutorizacionSubtipoRepository = async () => {
@@ -22,28 +20,26 @@ export class AutorizacionPracticaService {
     }
 
     getAutorizacionesPractica = async (params: any) => {
-        const autorizacionRepository = await this.getAutorizacionSubtipoRepository();
         const requiereAutorizacionRepository = await this.getRequiereAutorizacionRepository();
-        const asociadoId = params.asociadoId;
+        const requiereAutorizaciones: RequiereAutorizacion[] = await requiereAutorizacionRepository.find();
+        const requiereAutorizacion = requiereAutorizaciones.find( x => x.idPlan == params.idPlan);
 
-        /*
-        const requiereAutorizacion = await autorizacionRepository.createQueryBuilder("requiereAutorizacion")
-            .where("autorizacion.activo = :activo", { activo:`${params.activo}` })
-            .andWhere("autorizacion.autorizacionTipo = :autorizacionTipoId", { autorizacionTipoId:`${params.autorizacion_tipo_id}` })
-            .getMany();
-        */
-
+        const autorizacionRepository = await this.getAutorizacionSubtipoRepository();
         const autorizacionPractica = await autorizacionRepository.createQueryBuilder("autorizacionPractica")
             .where("autorizacionPractica.activo = :activo", { activo:`${params.activo}` })
             .andWhere("autorizacionPractica.tipoAutorizacion = :autorizacionTipoId", { autorizacionTipoId:`${params.autorizacion_tipo_id}` })
             .andWhere("autorizacionPractica.subtipoAutorizacion = :autorizacionSubtipoId", { autorizacionSubtipoId:`${params.autorizacion_subtipo_id}` })
-            .getMany();
-        return autorizacionPractica;
-    }
+            .getOne();
 
-    getPlan() {
-        this.https.get('https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY' ,(respo) => {
-        });
+
+
+        const respuestaAutorizacionPractica: Partial<AutorizacionPractica> = {
+            ...autorizacionPractica,
+        };
+
+        console.log();
+
+        return autorizacionPractica;
     }
 
 
