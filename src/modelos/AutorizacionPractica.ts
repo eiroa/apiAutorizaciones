@@ -41,4 +41,6 @@ export class AutorizacionPractica {
 
     @Column({name :'ACTIVO'})
     activo: string;
+
+    requiere?: string;
 }

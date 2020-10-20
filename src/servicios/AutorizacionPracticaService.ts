@@ -20,10 +20,12 @@ export class AutorizacionPracticaService {
     }
 
     getAutorizacionesPractica = async (params: any) => {
+        /* RequiereRepository obj */
         const requiereAutorizacionRepository = await this.getRequiereAutorizacionRepository();
         const requiereAutorizaciones: RequiereAutorizacion[] = await requiereAutorizacionRepository.find();
-        const requiereAutorizacion = requiereAutorizaciones.find( x => x.idPlan == params.idPlan);
+        const requiereAutorizacion = requiereAutorizaciones.find( x => x.idPlan == params.id_plan);
 
+        /* AutorizacionRepository obj */
         const autorizacionRepository = await this.getAutorizacionSubtipoRepository();
         const autorizacionPractica = await autorizacionRepository.createQueryBuilder("autorizacionPractica")
             .where("autorizacionPractica.activo = :activo", { activo:`${params.activo}` })
@@ -31,15 +33,12 @@ export class AutorizacionPracticaService {
             .andWhere("autorizacionPractica.subtipoAutorizacion = :autorizacionSubtipoId", { autorizacionSubtipoId:`${params.autorizacion_subtipo_id}` })
             .getOne();
 
-
-
+        /* Objeto intermedio */
         const respuestaAutorizacionPractica: Partial<AutorizacionPractica> = {
             ...autorizacionPractica,
+            requiere: requiereAutorizacion.requiere ? requiereAutorizacion.requiere : null
         };
-
-        console.log();
-
-        return autorizacionPractica;
+        return respuestaAutorizacionPractica;
     }
 
 
