@@ -42,7 +42,7 @@
     "request": "^2.88.2",
     "sonarqube-scanner": "^2.5.0",
     "ts-mocha": "^6.0.0",
-    "typescript": "^3.3.3333"
+    "typescript": "~3.8.3"
   },
   "dependencies": {
     "method-override": "^2.3.9",
