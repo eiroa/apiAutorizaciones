@@ -30,6 +30,9 @@ export class Enrutador {
 
         this.rutas.route("/autorizacion_subtipo")
             .get(this.controller.getAutorizacionesSubtipo);
+
+        this.rutas.route("/autorizacion_practica")
+            .get(this.controller.getAutorizacionPractica);
     }
 
     public obtenerRutas(){

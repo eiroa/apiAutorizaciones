@@ -38,4 +38,7 @@ export class AutorizacionPractica {
 
     @Column({name :'PLAZO_HS'})
     plazoHs: number;
+
+    @Column({name :'ACTIVO'})
+    activo: string;
 }

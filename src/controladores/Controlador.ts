@@ -5,17 +5,20 @@ import { TempService } from "../servicios/TempServicio";
 import { QueryUtils } from "../componentes/QueryUtils";
 import {AutorizacionTipoService} from "../servicios/AutorizacionTipoService";
 import {AutorizacionSubtipoService} from "../servicios/AutorizacionSubtipoService";
+import {AutorizacionPracticaService} from "../servicios/AutorizacionPracticaService";
 
 export class Controlador {
 
     private serviceAutorizaciones: AutorizacionTipoService;
     private serviceAutorizacionSubtipo: AutorizacionSubtipoService;
+    private serviceAutorizacionPractica: AutorizacionPracticaService;
     private servicio: TempService;
     private queryUtils: QueryUtils;
     
     constructor() {
         this.serviceAutorizaciones = new AutorizacionTipoService();
         this.serviceAutorizacionSubtipo = new AutorizacionSubtipoService();
+        this.serviceAutorizacionPractica = new AutorizacionPracticaService();
         this.servicio = new TempService();
         this.queryUtils = new QueryUtils();
     }
@@ -100,6 +103,9 @@ export class Controlador {
         }
     }
 
-
+    getAutorizacionPractica = async  (req: Request, res: Response) => {
+        const response = await this.serviceAutorizacionPractica.getAutorizacionesPractica(req.query);
+        res.send(response);
+    }
 
 }
