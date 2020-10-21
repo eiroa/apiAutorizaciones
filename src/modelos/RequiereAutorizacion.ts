@@ -10,7 +10,7 @@ export class RequiereAutorizacion {
     id: number;
 
     @Column({name: 'ID_PLAN'})
-    idPlan: string;
+    idPlan: number;
 
     @Column({name: 'REQUIERE'})
     requiere: string;
