@@ -6,6 +6,7 @@ export class Enrutador {
     private rutas: any;
     
     private controller: Controlador;
+    private autorizaciones = "/autorizaciones";
 
     constructor(){
         this.controller = new Controlador();
@@ -25,13 +26,13 @@ export class Enrutador {
             .get(this.controller.getTempById)
             .put(this.controller.updateTemp);
 
-        this.rutas.route("/autorizacion_tipo")
+        this.rutas.route(this.autorizaciones + "/tipo")
             .get(this.controller.getAutorizacionesTipo);
 
-        this.rutas.route("/autorizacion_subtipo")
+        this.rutas.route(this.autorizaciones + "/subtipo")
             .get(this.controller.getAutorizacionesSubtipo);
 
-        this.rutas.route("/autorizacion_practica")
+        this.rutas.route(this.autorizaciones + "/practica")
             .get(this.controller.getAutorizacionPractica);
     }
 
