@@ -109,6 +109,7 @@ export class Controlador {
             res.send(response);
         } catch (e) {
             console.error(e);
+            res.send(500);
             res.send({error: 'Hubo un error'})
         }
     }

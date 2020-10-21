@@ -1,6 +1,7 @@
 import {Connection} from "typeorm";
 import {Repository} from "../conexiones/Conexion";
 import {AutorizacionSubtipo} from "../modelos/AutorizacionSubtipo";
+import {AutorizacionTipo} from "../modelos/AutorizacionTipo";
 
 
 export class AutorizacionSubtipoService {
@@ -19,6 +20,17 @@ export class AutorizacionSubtipoService {
             .where("autorizacion.activo = :activo", { activo:`${params.activo}` })
             .andWhere("autorizacion.autorizacionTipo = :autorizacionTipoId", { autorizacionTipoId:`${params.autorizacion_tipo_id}` })
             .getMany();
-        return response;
+        return this.mappeoRespuesta(response);
+    }
+
+    mappeoRespuesta(array: any[]) {
+        const result: Partial<AutorizacionSubtipo>[] = array.map( x => {
+            return {
+                autorizacion_subtipo_id: x.id,
+                nombre: x.nombre,
+                descripcion: x.descripcion
+            };
+        });
+        return result;
     }
 }
