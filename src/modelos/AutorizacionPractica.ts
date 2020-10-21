@@ -16,7 +16,6 @@ export class AutorizacionPractica {
     nombre: string;
 
     @Column({name :'DESCRIPCION'})
-
     descripcion: string;
 
     @ManyToOne(type => AutorizacionTipo, {primary : true} )
