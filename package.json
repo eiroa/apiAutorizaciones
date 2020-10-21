@@ -1,11 +1,11 @@
 {
-  "name": "instituciones-api",
+  "name": "autorizaciones-api",
   "version": "0.0.1",
   "description": "",
   "license": "MIT",
   "readmeFilename": "README.md",
   "author": {
-    "name": "Matias Ciarla",
+    "name": "Mauro Eiroa, Axel Berlot, Diego Guzman",
     "email": ""
   },
   "repository": {

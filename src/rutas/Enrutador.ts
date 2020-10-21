@@ -15,17 +15,6 @@ export class Enrutador {
     public iniciar(express: any) {
         this.rutas = express.Router();
 
-        this.rutas.route("/temp")
-            .get(this.controller.getTemp)
-            .post(this.controller.saveTemp);
-
-        this.rutas.route("/temp2")
-            .get(this.controller.getTemp2);
-
-        this.rutas.route("/temp/:id")
-            .get(this.controller.getTempById)
-            .put(this.controller.updateTemp);
-
         this.rutas.route(this.autorizaciones + "/tipo")
             .get(this.controller.getAutorizacionesTipo);
 

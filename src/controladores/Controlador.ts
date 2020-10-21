@@ -22,7 +22,7 @@ export class Controlador {
         this.servicio = new TempService();
         this.queryUtils = new QueryUtils();
     }
-
+/**
     deleteTemp = async (req:Request , res: Response) => {
         res.send('asdad');
     }
@@ -80,6 +80,8 @@ export class Controlador {
             res.send({error: 'Hubo un error'})
         }
     }
+
+    **/
 
     getAutorizacionesTipo = async (req:Request , res: Response) => {
         try {

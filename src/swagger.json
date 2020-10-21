@@ -1,15 +1,15 @@
 {
     "swagger": "2.0",
     "info": {
-        "title": "Auditoria de terreno API REST",
+        "title": "Auditoria de terreno, Autorizaciones API REST",
         "version": "1.0.0",
-        "description": "API Restful de Aplicativo Auditoria de terreno"        
+        "description": "API Restful de Aplicativo de Autorizaciones de Auditoria de terreno,"
     },
     "basePath": "/api",
     "tags": [
         {
-            "name": "Instituciones",
-            "description": "Todo acerca de Instituciones"
+            "name": "Autorizaciones",
+            "description": "Todo acerca de Autorizaciones"
         },
         {
             "name": "Uges",
@@ -24,20 +24,20 @@
         "http"
     ],
     "paths": {
-        "/instituciones": {
+        "/autorizaciones/tipo": {
             "get": {
                 "tags": [
-                    "Instituciones"
+                    "Tipos de Autorizaciones"
                 ],
-                "summary": "Obtiene las instituciones",
+                "summary": "Obtiene las autorizaciones por tipo",
                 "operationId": "obtenerInstituciones",
                 "produces": [
                     "application/json"
                 ],
-                "description": "Retorna una lista de instituciones.",
+                "description": "Retorna una lista de Autorizaciones.",
                 "responses": {
                     "200": {
-                        "description": "Una lista de instituciones",
+                        "description": "Una lista de autorizaciones",
                         "schema": {
                             "$ref": "#/definitions/ListaInstituciones"
                         }
@@ -51,12 +51,12 @@
                 }
             }
         },
-        "/instituciones/{id}": {
+        "/autorizaciones/subtipo": {
             "get": {
                 "tags": [
-                    "Instituciones"
+                    "Subtipos de autorizaciones"
                 ],
-                "summary": "Obtiene una institucion",
+                "summary": "Obtiene los subtipos de autorizaciones",
                 "operationId": "obtenerInstitucionPorID",
                 "produces": [
                     "application/json"
@@ -91,7 +91,7 @@
                 }
             }
         },
-        "/instituciones/uges": {
+        "/autorizaciones/practica": {
             "get": {
                 "tags": [
                     "Uges"
@@ -107,33 +107,6 @@
                         "description": "Una lista de uges",
                         "schema": {
                             "$ref": "#/definitions/ListaUges"
-                        }
-                    },
-                    "405": {
-                        "description": "Error de validación"
-                    },
-                    "500": {
-                        "description": "Error interno del servidor"
-                    }
-                }
-            }
-        },
-        "/instituciones/tipos": {
-            "get": {
-                "tags": [
-                    "Tipos de internación"
-                ],
-                "summary": "Obtiene los tipos de internacion",
-                "operationId": "obtenerUges",
-                "produces": [
-                    "application/json"
-                ],
-                "description": "Retorna una lista de tipos de internacion.",
-                "responses": {
-                    "200": {
-                        "description": "Una lista de uges",
-                        "schema": {
-                            "$ref": "#/definitions/ListaTipoInternacion"
                         }
                     },
                     "405": {

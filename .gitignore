@@ -13,3 +13,4 @@ build/
 .scannerwork/
 .nyc_output/
 coverage/
+apiAutorizaciones.iml
